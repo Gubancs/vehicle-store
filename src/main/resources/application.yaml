@@ -1,0 +1,71 @@
+# Tomcat Server
+server:
+  port: 8080
+  undertow:
+    threads:
+      io: 300
+      worker: 300
+    accesslog:
+      enabled: false
+
+logging:
+  level:
+    web: INFO
+
+# Spring
+spring:
+  main:
+    lazy-initialization: true
+
+  #Caching
+  cache:
+    type: JCACHE
+    infinispan:
+      config: classpath:ehcache.xml
+
+
+  # Enable Virtual Threads
+  threads:
+    virtual:
+      enabled: true
+
+  #Datasource
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/vehicledb}
+    username: ${POSTGRES_USER:vehicleuser}
+    password: ${POSTGRES_PASSWORD:vehiclepass}
+    hikari:
+        connection-timeout: 30000
+        maximum-pool-size: 100
+        minimum-idle: 10
+        idle-timeout: 30000
+        max-lifetime: 2000000
+        connection-test-query: SELECT 1
+        auto-commit: false
+
+  #Spring Data JPA
+  data:
+    jpa:
+      repositories:
+        enabled: true
+
+  #Java Persistence API
+  jpa:
+    open-in-view: true
+    show-sql: false
+
+    #Hibernate
+    hibernate:
+      format_sql: true
+      ddl-auto: update
+
+    properties:
+
+      #Cache
+      hibernate:
+        cache:
+          use_query_cache: false
+          use_second_level_cache: false
+          generate_statistics: false
+          region:
+            factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory

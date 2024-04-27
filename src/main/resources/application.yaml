@@ -1,6 +1,6 @@
 # Tomcat Server
 server:
-  port: 8080
+  port: 8888
   undertow:
     threads:
       io: 300
@@ -12,6 +12,7 @@ logging:
   level:
     web: INFO
 
+
 # Spring
 spring:
   main:
@@ -19,10 +20,10 @@ spring:
 
   #Caching
   cache:
-    type: JCACHE
-    infinispan:
-      config: classpath:ehcache.xml
-
+    type: HAZELCAST
+    jcache:
+        provider: com.hazelcast.cache.HazelcastCachingProvider
+        config: classpath:hazelcast.yaml
 
   # Enable Virtual Threads
   threads:
@@ -64,8 +65,8 @@ spring:
       #Cache
       hibernate:
         cache:
-          use_query_cache: false
-          use_second_level_cache: false
-          generate_statistics: false
+          use_query_cache: true
+          use_second_level_cache: true
+          generate_statistics: true
           region:
-            factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+            factory_class: com.hazelcast.hibernate.HazelcastLocalCacheRegionFactory

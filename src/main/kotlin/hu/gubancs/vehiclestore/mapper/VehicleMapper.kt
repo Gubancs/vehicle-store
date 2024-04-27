@@ -1,13 +1,13 @@
-package hu.gubancs.vehiclestore.impl
+package hu.gubancs.vehiclestore.mapper
 
-import hu.gubancs.vehiclestore.api.VehicleDto
+import hu.gubancs.vehiclestore.rest.dto.VehicleDto
 import hu.gubancs.vehiclestore.model.Vehicle
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 
 @Component
 @Scope("prototype")
-class VehicleDtoMapper {
+class VehicleMapper {
 
     fun mapToDto(vehicle: Vehicle): VehicleDto {
         val vehicleDto = VehicleDto()

@@ -19,6 +19,8 @@ repositories {
 }
 
 dependencies {
+    implementation("com.hazelcast:hazelcast:5.4.0")
+    implementation("com.hazelcast:hazelcast-hibernate53:5.1.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-serialization")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -27,12 +29,9 @@ dependencies {
         exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
     }
     implementation("org.springframework.boot:spring-boot-starter-undertow")
-    //implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.hibernate.validator:hibernate-validator:8.0.1.Final")
-    compileOnly("org.springframework.cloud:spring-cloud-starter-openfeign:4.1.1")
-    //runtimeOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation(kotlin("test"))
 }
 

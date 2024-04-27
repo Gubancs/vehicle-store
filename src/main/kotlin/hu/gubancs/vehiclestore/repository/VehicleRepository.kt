@@ -1,4 +1,4 @@
-package hu.gubancs.vehiclestore.impl
+package hu.gubancs.vehiclestore.repository
 
 import hu.gubancs.vehiclestore.model.Vehicle
 import org.springframework.data.jpa.repository.JpaRepository

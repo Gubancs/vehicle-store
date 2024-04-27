@@ -1,1 +1,0 @@
-java -jar stress-3.1.1.jar

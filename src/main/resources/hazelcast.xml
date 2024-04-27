@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hazelcast xmlns="http://www.hazelcast.com/schema/config"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.hazelcast.com/schema/config
+                               http://www.hazelcast.com/schema/config/hazelcast-config-4.0.xsd">
+
+    <cluster-name>hazelcast-cluster</cluster-name>
+
+    <network>
+        <join>
+            <multicast enabled="false"/>
+        </join>
+    </network>
+
+    <cache name="plateNumberCache">
+        <key-type class-name="java.lang.String"/>
+        <eviction size="1000" eviction-policy="LRU"/>
+    </cache>
+
+    <cache name="searchCache">
+        <key-type class-name="java.lang.String"/>
+        <eviction size="1000" eviction-policy="LRU"/>
+    </cache>
+
+</hazelcast>

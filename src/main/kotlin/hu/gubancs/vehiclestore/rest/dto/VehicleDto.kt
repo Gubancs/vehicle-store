@@ -1,4 +1,4 @@
-package hu.gubancs.vehiclestore.api
+package hu.gubancs.vehiclestore.rest.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.Valid

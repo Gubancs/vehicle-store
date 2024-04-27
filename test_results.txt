@@ -1,5 +1,5 @@
 
-1.
+Első teszt eredmények:
 
 Last datapoint is:
   time=509.36, expectedRequests=178105, scheduledRequests=178105, startedRequests=123997, successfulRequests=21507, validResponses=21507, failedRequests=156598, requestsPerSecond=0, latency90th=1058
@@ -24,29 +24,31 @@ Fail reasons are:
   unexpected end of stream on http://localhost:8080/...,92
   timeout,93218
 
+Legfrisebb teszt eredmények:
 
 All done in 1.02 seconds total 
 Last datapoint is:
-  time=506.14, expectedRequests=178105, scheduledRequests=178105, startedRequests=131055, successfulRequests=94351, validResponses=94349, failedRequests=83756, requestsPerSecond=0, latency90th=1133
+  time=507.23, expectedRequests=178105, scheduledRequests=178105, startedRequests=152442, successfulRequests=129748, validResponses=129727, failedRequests=48378, requestsPerSecond=0, latency90th=1001
   100.00% expected requests scheduled
-  73.58% scheduled requests started
-  71.99% started requests finished successful
-  100.00% successful requests valid
+  85.59% scheduled requests started
+  85.11% started requests finished successful
+  99.98% successful requests valid
 Latency buckets are:
-  <5ms,78882
-  <10ms,8628
-  <25ms,2860
-  <50ms,745
-  <100ms,559
-  <250ms,483
-  <500ms,603
-  <1000ms,19571
-  <10000ms,18724
+  <5ms,101969
+  <10ms,9825
+  <25ms,2207
+  <50ms,1565
+  <100ms,1860
+  <250ms,2778
+  <500ms,3432
+  <1000ms,16864
+  <10000ms,11942
 Fail reasons are:
-  Read timed out,5327
-  Connection reset by peer,791
-  Connection reset,69
-  Can't assign requested address,46247
-  unexpected end of stream on http://localhost:8080/...,735
-  timeout,30558
-  Broken pipe,29
+  Connect timed out,4
+  Read timed out,4565
+  Connection reset by peer,22
+  Connection reset,95
+  Can't assign requested address,25611
+  unexpected end of stream on http://localhost:8080/...,187
+  timeout,17810
+  Broken pipe,84

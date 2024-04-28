@@ -5,22 +5,22 @@ import org.hibernate.annotations.Cache
 import org.hibernate.annotations.CacheConcurrencyStrategy
 import java.time.LocalDate
 
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "entity")
 @Entity
 @Table(
     name = "VEHICLES", indexes = [
-        Index(name = "IDX_UUID", columnList = "UUID"),
-        Index(name = "IDX_PLATE_NUMBER", columnList = "PLATE_NUMBER"),
-        Index(name = "IDX_OWNER_NAME", columnList = "OWNER_NAME"),
+        Index(name = "IDX_VEHICLE_UUID", columnList = "UUID", unique = true),
+        Index(name = "IDX_VEHICLE_PLATE_NUMBER", columnList = "PLATE_NUMBER", unique = true),
+        Index(name = "IDX_VEHICLE_OWNER_NAME", columnList = "OWNER_NAME"),
+        Index(name = "IDX_VEHICLE_ATTRIBUTES", columnList = "ATTRIBUTES"),
     ]
 )
 class Vehicle : BaseEntity() {
 
-    @Column(name = "UUID", length = 36, unique = true)
+    @Column(name = "UUID", length = 36)
     var uuid: String? = null
 
-    @Column(name = "PLATE_NUMBER", length = 20, unique = true)
+    @Column(name = "PLATE_NUMBER", length = 20)
     var plateNumber: String? = null
 
     @Column(name = "OWNER_NAME", length = 200)
@@ -32,4 +32,5 @@ class Vehicle : BaseEntity() {
 
     @Column(name = "ATTRIBUTES")
     var attributes: String? = null
+
 }

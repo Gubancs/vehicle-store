@@ -2,16 +2,12 @@
 server:
   port: 8888
   undertow:
-    threads:
-      io: 300
-      worker: 300
     accesslog:
       enabled: false
 
 logging:
   level:
     web: INFO
-
 
 # Spring
 spring:
@@ -22,8 +18,8 @@ spring:
   cache:
     type: HAZELCAST
     jcache:
-        provider: com.hazelcast.cache.HazelcastCachingProvider
-        config: classpath:hazelcast.yaml
+      provider: com.hazelcast.cache.HazelcastCachingProvider
+      config: classpath:hazelcast.xml
 
   # Enable Virtual Threads
   threads:
@@ -36,13 +32,13 @@ spring:
     username: ${POSTGRES_USER:vehicleuser}
     password: ${POSTGRES_PASSWORD:vehiclepass}
     hikari:
-        connection-timeout: 30000
-        maximum-pool-size: 100
-        minimum-idle: 10
-        idle-timeout: 30000
-        max-lifetime: 2000000
-        connection-test-query: SELECT 1
-        auto-commit: false
+      connection-timeout: 10000
+      maximum-pool-size: 10
+      minimum-idle: 10
+      idle-timeout: 30000
+      max-lifetime: 2000000
+      connection-test-query: SELECT 1
+      auto-commit: false
 
   #Spring Data JPA
   data:

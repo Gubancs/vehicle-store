@@ -2,24 +2,36 @@
 <hazelcast xmlns="http://www.hazelcast.com/schema/config"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://www.hazelcast.com/schema/config
-                               http://www.hazelcast.com/schema/config/hazelcast-config-4.0.xsd">
-
-    <cluster-name>hazelcast-cluster</cluster-name>
+                               http://www.hazelcast.com/schema/config/hazelcast-config-5.4.xsd">
 
     <network>
         <join>
+            <auto-detection enabled="false"/>
             <multicast enabled="false"/>
         </join>
     </network>
 
     <cache name="plateNumberCache">
         <key-type class-name="java.lang.String"/>
-        <eviction size="1000" eviction-policy="LRU"/>
+        <value-type class-name="java.lang.Boolean"/>
+        <eviction size="30000"/>
     </cache>
 
-    <cache name="searchCache">
+    <cache name="searchResultCache">
         <key-type class-name="java.lang.String"/>
-        <eviction size="1000" eviction-policy="LRU"/>
+        <value-type class-name="java.util.List"/>
+        <eviction size="20000"/>
     </cache>
+
+    <cache name="countCache">
+        <value-type class-name="java.lang.Long"/>
+        <eviction size="1"/>
+    </cache>
+
+    <cache name="uuidCache">
+        <key-type class-name="java.lang.String"/>
+        <eviction size="30000"/>
+    </cache>
+
 
 </hazelcast>

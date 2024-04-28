@@ -13,6 +13,6 @@ interface VehicleRepository : JpaRepository<Vehicle, Long> {
 
     fun findByUuid(uuid: String): Optional<Vehicle>
 
-    @Query("SELECT v FROM Vehicle v WHERE v.plateNumber LIKE %:query% OR v.ownerName LIKE %:query% OR v.attributes LIKE %:query%")
+    @Query("SELECT v FROM Vehicle v WHERE lower(v.plateNumber) LIKE %:query% OR lower(v.ownerName) LIKE %:query% OR lower(v.attributes) LIKE %:query%")
     fun search(query: String): List<Vehicle>
 }

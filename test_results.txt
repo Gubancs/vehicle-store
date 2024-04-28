@@ -28,27 +28,47 @@ Legfrisebb teszt eredmények:
 
 All done in 1.02 seconds total 
 Last datapoint is:
-  time=507.23, expectedRequests=178105, scheduledRequests=178105, startedRequests=152442, successfulRequests=129748, validResponses=129727, failedRequests=48378, requestsPerSecond=0, latency90th=1001
+  time=506.50, expectedRequests=178105, scheduledRequests=178105, startedRequests=152272, successfulRequests=134832, validResponses=134822, failedRequests=43283, requestsPerSecond=0, latency90th=1001
   100.00% expected requests scheduled
-  85.59% scheduled requests started
-  85.11% started requests finished successful
-  99.98% successful requests valid
+  85.50% scheduled requests started
+  88.55% started requests finished successful
+  99.99% successful requests valid
 Latency buckets are:
-  <5ms,101969
-  <10ms,9825
-  <25ms,2207
-  <50ms,1565
-  <100ms,1860
-  <250ms,2778
-  <500ms,3432
-  <1000ms,16864
-  <10000ms,11942
+  <5ms,100447
+  <10ms,13534
+  <25ms,3585
+  <50ms,1972
+  <100ms,1822
+  <250ms,3164
+  <500ms,3449
+  <1000ms,15731
+  <10000ms,8568
 Fail reasons are:
-  Connect timed out,4
-  Read timed out,4565
-  Connection reset by peer,22
-  Connection reset,95
-  Can't assign requested address,25611
-  unexpected end of stream on http://localhost:8080/...,187
-  timeout,17810
-  Broken pipe,84
+  Read timed out,1874
+  Can't assign requested address,25829
+  unexpected end of stream on http://localhost:8080/...,6
+  timeout,15574
+
+
+  Legjobb eredmény:
+  
+  All done in 1.02 seconds total 
+Last datapoint is:
+  time=506.03, expectedRequests=178105, scheduledRequests=178105, startedRequests=178105, successfulRequests=177895, validResponses=177893, failedRequests=212, requestsPerSecond=0, latency90th=6
+  100.00% expected requests scheduled
+  100.00% scheduled requests started
+  99.88% started requests finished successful
+  100.00% successful requests valid
+Latency buckets are:
+  <5ms,162127
+  <10ms,8330
+  <25ms,1892
+  <50ms,748
+  <100ms,605
+  <250ms,501
+  <500ms,514
+  <1000ms,2229
+  <10000ms,1159
+Fail reasons are:
+  Read timed out,1
+  timeout,211

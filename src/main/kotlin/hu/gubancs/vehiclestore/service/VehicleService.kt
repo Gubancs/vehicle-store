@@ -4,7 +4,9 @@ import hu.gubancs.vehiclestore.mapper.VehicleMapper
 import hu.gubancs.vehiclestore.repository.VehicleRepository
 import hu.gubancs.vehiclestore.rest.dto.VehicleDto
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
+import org.springframework.cache.annotation.Caching
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 import java.util.*
@@ -19,8 +21,15 @@ class VehicleService {
     private lateinit var mapper: VehicleMapper
 
     @Async
-    fun saveAsync(dto: VehicleDto) {
-        repository.save(mapper.mapToEntity(dto))
+    @Caching(
+        evict = [
+            CacheEvict(value = ["plateNumberCache"], key = "#dto.plateNumber"),
+            CacheEvict(value = ["uuidCache"], key = "#dto.uuid"),
+            CacheEvict(value = ["countCache"], allEntries = true),
+        ]
+    )
+    fun createAsync(dto: VehicleDto) {
+        repository.save(mapper.mapToEntity(dto));
     }
 
     @Cacheable("plateNumberCache")
@@ -33,9 +42,9 @@ class VehicleService {
         return repository.findByUuid(uuid).map { mapper.mapToDto(it) }
     }
 
-    @Cacheable("searchCache")
+    @Cacheable("searchResultCache")
     fun search(keyword: String): List<VehicleDto> {
-        return repository.search(keyword).map { mapper.mapToDto(it) }
+        return repository.search(keyword.lowercase()).map { mapper.mapToDto(it) }
     }
 
     @Cacheable("countCache")

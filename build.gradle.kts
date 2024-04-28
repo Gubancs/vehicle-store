@@ -19,6 +19,7 @@ repositories {
 }
 
 dependencies {
+    implementation("javax.cache:cache-api:1.1.1")
     implementation("com.hazelcast:hazelcast:5.4.0")
     implementation("com.hazelcast:hazelcast-hibernate53:5.1.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -32,6 +33,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.hibernate.validator:hibernate-validator:8.0.1.Final")
+    //implementation("org.springframework.boot:spring-boot-starter-actuator")
     testImplementation(kotlin("test"))
 }
 

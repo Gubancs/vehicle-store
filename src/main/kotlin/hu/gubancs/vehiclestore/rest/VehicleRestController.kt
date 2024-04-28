@@ -5,6 +5,7 @@ import hu.gubancs.vehiclestore.service.VehicleService
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -19,16 +20,24 @@ class VehicleRestController {
     private lateinit var service: VehicleService
 
     @PostMapping("/jarmuvek")
-    fun save(@Valid @RequestBody dto: VehicleDto): ResponseEntity<VehicleDto> {
-        if (service.existsByPlateNumber(dto.plateNumber!!)) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build()
+    fun create(@Valid @RequestBody dto: VehicleDto): ResponseEntity<VehicleDto> {
+        return if (service.existsByPlateNumber(dto.plateNumber!!)) {
+            conflictResponse()
         } else {
             dto.uuid = UUID.randomUUID().toString()
-            service.saveAsync(dto)
-            return ResponseEntity.status(HttpStatus.CREATED)
-                .headers { headers -> headers.location = URI.create("/jarmuvek/${dto.uuid}") }
-                .body(dto)
+            service.createAsync(dto)
+            createdResponse(dto)
         }
+    }
+
+    private fun createdResponse(dto: VehicleDto): ResponseEntity<VehicleDto> {
+        return ResponseEntity.status(HttpStatus.CREATED)
+            .headers { headers -> headers.location = URI.create("/jarmuvek/${dto.uuid}") }
+            .body(dto)
+    }
+
+    private fun conflictResponse(): ResponseEntity<VehicleDto> {
+        return ResponseEntity.status(HttpStatus.CONFLICT).build()
     }
 
     @GetMapping("/jarmuvek/{uuid}")

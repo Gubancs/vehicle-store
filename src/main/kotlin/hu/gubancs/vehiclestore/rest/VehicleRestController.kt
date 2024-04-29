@@ -5,7 +5,6 @@ import hu.gubancs.vehiclestore.service.VehicleService
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -21,7 +20,7 @@ class VehicleRestController {
 
     @PostMapping("/jarmuvek")
     fun create(@Valid @RequestBody dto: VehicleDto): ResponseEntity<VehicleDto> {
-        return if (service.existsByPlateNumber(dto.plateNumber!!)) {
+        return if (service.existsByRegistration(dto.registration!!)) {
             ResponseEntity.status(HttpStatus.CONFLICT).build()
         } else {
             dto.uuid = UUID.randomUUID().toString()
@@ -31,7 +30,7 @@ class VehicleRestController {
                 .body(dto)
         }
     }
-    
+
     @GetMapping("/jarmuvek/{uuid}")
     fun get(@NotBlank @PathVariable uuid: String): ResponseEntity<VehicleDto> {
         return ResponseEntity.of(service.findByUuid(uuid))
@@ -39,10 +38,7 @@ class VehicleRestController {
 
     @GetMapping("/kereses")
     fun search(@NotBlank @RequestParam(name = "q") keyword: String?): List<VehicleDto> {
-        if (keyword.isNullOrBlank()) {
-            return emptyList();
-        }
-        return service.search(keyword)
+        return if (keyword.isNullOrBlank()) emptyList() else service.search(keyword)
     }
 
     @GetMapping(value = ["/jarmuvek"], produces = [MediaType.TEXT_PLAIN_VALUE])

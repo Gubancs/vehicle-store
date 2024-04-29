@@ -1,7 +1,7 @@
 package hu.gubancs.vehiclestore.mapper
 
-import hu.gubancs.vehiclestore.rest.dto.VehicleDto
 import hu.gubancs.vehiclestore.model.Vehicle
+import hu.gubancs.vehiclestore.rest.dto.VehicleDto
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 
@@ -12,20 +12,21 @@ class VehicleMapper {
     fun mapToDto(vehicle: Vehicle): VehicleDto {
         val vehicleDto = VehicleDto()
         vehicleDto.uuid = vehicle.uuid
-        vehicleDto.plateNumber = vehicle.plateNumber
-        vehicleDto.licenseValidUntil = vehicle.licenseValidUntil
-        vehicleDto.ownerName = vehicle.ownerName
-        vehicleDto.attributes = vehicle.attributes?.split("#")
+        vehicleDto.registration = vehicle.registration
+        vehicleDto.validity = vehicle.validity
+        vehicleDto.owner = vehicle.owner
+        vehicleDto.data = vehicle.data?.split("|")
         return vehicleDto
     }
 
-    fun mapToEntity(vehicleDto: VehicleDto): Vehicle {
+    fun mapToEntity(dto: VehicleDto): Vehicle {
         val vehicle = Vehicle()
-        vehicle.uuid = vehicleDto.uuid
-        vehicle.plateNumber = vehicleDto.plateNumber
-        vehicle.licenseValidUntil = vehicleDto.licenseValidUntil
-        vehicle.ownerName = vehicleDto.ownerName
-        vehicle.attributes = vehicleDto.attributes?.joinToString("#")
+        vehicle.uuid = dto.uuid
+        vehicle.registration = dto.registration
+        vehicle.validity = dto.validity
+        vehicle.owner = dto.owner
+        vehicle.data = dto.data?.joinToString("|")
         return vehicle
     }
+
 }

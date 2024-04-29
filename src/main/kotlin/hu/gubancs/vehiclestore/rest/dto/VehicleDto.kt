@@ -16,24 +16,24 @@ class VehicleDto {
     @NotBlank
     @Size(max = 20)
     @JsonProperty("rendszam")
-    var plateNumber: String? = null
+    var registration: String? = null
 
     @NotBlank
     @Size(max = 200)
     @JsonProperty("tulajdonos")
-    var ownerName: String? = null
+    var owner: String? = null
 
     @NotNull
     @JsonProperty("forgalmi_ervenyes")
-    var licenseValidUntil: LocalDate? = null
+    var validity: LocalDate? = null
 
     @Valid
     @NotNull
     @Size(max = 200)
     @JsonProperty("adatok")
-    var attributes: List<@NotBlank @Max(200) String>? = null
+    var data: List<@NotBlank @Max(200) String>? = null
 
     override fun toString(): String {
-        return "VehicleDto(uuid=$uuid, plateNumber=$plateNumber, ownerName=$ownerName, licenseValidUntil=$licenseValidUntil, attributes=$attributes)"
+        return "VehicleDto(uuid=$uuid, registration=$registration, owner=$owner, validity=$validity, data=$data)"
     }
 }

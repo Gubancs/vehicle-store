@@ -23,7 +23,7 @@ class VehicleService {
     @Async
     @Caching(
         evict = [
-            CacheEvict(value = ["plateNumberCache"], key = "#dto.plateNumber"),
+            CacheEvict(value = ["registrationCache"], key = "#dto.registration"),
             CacheEvict(value = ["uuidCache"], key = "#dto.uuid"),
             CacheEvict(value = ["countCache"], allEntries = true),
         ]
@@ -32,9 +32,9 @@ class VehicleService {
         repository.save(mapper.mapToEntity(dto));
     }
 
-    @Cacheable("plateNumberCache")
-    fun existsByPlateNumber(plateNumber: String): Boolean {
-        return repository.existsByPlateNumber(plateNumber)
+    @Cacheable("registrationCache")
+    fun existsByRegistration(plateNumber: String): Boolean {
+        return repository.existsByRegistration(plateNumber)
     }
 
     @Cacheable("uuidCache")

@@ -9,10 +9,10 @@ import java.util.*
 @Repository
 interface VehicleRepository : JpaRepository<Vehicle, Long> {
 
-    fun existsByPlateNumber(plateNumber: String): Boolean
+    fun existsByRegistration(plateNumber: String): Boolean
 
     fun findByUuid(uuid: String): Optional<Vehicle>
 
-    @Query("SELECT v FROM Vehicle v WHERE lower(v.plateNumber) LIKE %:query% OR lower(v.ownerName) LIKE %:query% OR lower(v.attributes) LIKE %:query%")
+    @Query("SELECT v FROM Vehicle v WHERE lower(v.registration) LIKE %:query% OR lower(v.owner) LIKE %:query% OR lower(v.data) LIKE %:query%")
     fun search(query: String): List<Vehicle>
 }

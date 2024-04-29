@@ -22,24 +22,16 @@ class VehicleRestController {
     @PostMapping("/jarmuvek")
     fun create(@Valid @RequestBody dto: VehicleDto): ResponseEntity<VehicleDto> {
         return if (service.existsByPlateNumber(dto.plateNumber!!)) {
-            conflictResponse()
+            ResponseEntity.status(HttpStatus.CONFLICT).build()
         } else {
             dto.uuid = UUID.randomUUID().toString()
             service.createAsync(dto)
-            createdResponse(dto)
+            ResponseEntity.status(HttpStatus.CREATED)
+                .headers { headers -> headers.location = URI.create("/jarmuvek/${dto.uuid}") }
+                .body(dto)
         }
     }
-
-    private fun createdResponse(dto: VehicleDto): ResponseEntity<VehicleDto> {
-        return ResponseEntity.status(HttpStatus.CREATED)
-            .headers { headers -> headers.location = URI.create("/jarmuvek/${dto.uuid}") }
-            .body(dto)
-    }
-
-    private fun conflictResponse(): ResponseEntity<VehicleDto> {
-        return ResponseEntity.status(HttpStatus.CONFLICT).build()
-    }
-
+    
     @GetMapping("/jarmuvek/{uuid}")
     fun get(@NotBlank @PathVariable uuid: String): ResponseEntity<VehicleDto> {
         return ResponseEntity.of(service.findByUuid(uuid))

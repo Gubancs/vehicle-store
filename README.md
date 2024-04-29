@@ -1,6 +1,7 @@
 # Vehicle Store REST API
 
-This is a simple REST API which allows you to store and retrieve vehicles.
+This is a very simple REST API which allows you to store and retrieve vehicles
+in a PostgreSQL database. The application is built with Kotlin and Spring Boot.
 
 ### 1. Installation
    `git clone https://github.com/Gubancs/vehicle-store`

@@ -20,8 +20,6 @@ repositories {
 
 dependencies {
     implementation("javax.cache:cache-api:1.1.1")
-    implementation("com.hazelcast:hazelcast:5.4.0")
-    implementation("com.hazelcast:hazelcast-hibernate53:5.1.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-serialization")
     implementation("org.jetbrains.kotlin:kotlin-reflect")

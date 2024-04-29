@@ -2,9 +2,12 @@
 server:
   port: 8888
   undertow:
+
     accesslog:
       enabled: false
 
+
+# Logging
 logging:
   level:
     web: INFO
@@ -13,13 +16,6 @@ logging:
 spring:
   main:
     lazy-initialization: true
-
-  #Caching
-  cache:
-    type: HAZELCAST
-    jcache:
-      provider: com.hazelcast.cache.HazelcastCachingProvider
-      config: classpath:hazelcast.xml
 
   # Enable Virtual Threads
   threads:
@@ -31,11 +27,12 @@ spring:
     url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/vehicledb}
     username: ${POSTGRES_USER:vehicleuser}
     password: ${POSTGRES_PASSWORD:vehiclepass}
+
+    #Hikari Connection Pool
     hikari:
       connection-timeout: 10000
       maximum-pool-size: 10
       minimum-idle: 10
-      idle-timeout: 30000
       max-lifetime: 2000000
       connection-test-query: SELECT 1
       auto-commit: false
@@ -53,16 +50,5 @@ spring:
 
     #Hibernate
     hibernate:
-      format_sql: true
-      ddl-auto: update
-
-    properties:
-
-      #Cache
-      hibernate:
-        cache:
-          use_query_cache: true
-          use_second_level_cache: true
-          generate_statistics: true
-          region:
-            factory_class: com.hazelcast.hibernate.HazelcastLocalCacheRegionFactory
+      format_sql: false
+      ddl-auto: create-drop

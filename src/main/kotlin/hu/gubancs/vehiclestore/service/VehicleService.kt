@@ -44,7 +44,7 @@ class VehicleService {
 
     @Cacheable("searchResultCache")
     fun search(keyword: String): List<VehicleDto> {
-        return repository.search(keyword.lowercase()).map { mapper.mapToDto(it) }
+        return repository.search(keyword).map { mapper.mapToDto(it) }
     }
 
     @Cacheable("countCache")

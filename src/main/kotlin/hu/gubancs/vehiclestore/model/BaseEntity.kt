@@ -6,6 +6,7 @@ import jakarta.persistence.*
 open class BaseEntity {
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqGen")
+    @SequenceGenerator(name = "seqGen", sequenceName = "entity_seq", allocationSize = 50, initialValue = 1)
     var id: Long? = null
 }

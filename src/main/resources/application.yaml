@@ -14,13 +14,17 @@ logging:
 
 # Spring
 spring:
-  main:
-    lazy-initialization: true
 
-  # Enable Virtual Threads
-  threads:
-    virtual:
-      enabled: true
+
+
+  #DB Schema Initialization
+  sql:
+    init:
+      mode: ALWAYS
+      continue-on-error: false
+      schema-locations: classpath:/schema.sql
+
+
 
   #Datasource
   datasource:
@@ -31,7 +35,7 @@ spring:
     #Hikari Connection Pool
     hikari:
       connection-timeout: 10000
-      maximum-pool-size: 10
+      maximum-pool-size: 50
       minimum-idle: 10
       max-lifetime: 2000000
       connection-test-query: SELECT 1
@@ -45,10 +49,14 @@ spring:
 
   #Java Persistence API
   jpa:
-    open-in-view: true
+    open-in-view: false
     show-sql: false
 
     #Hibernate
     hibernate:
       format_sql: false
-      ddl-auto: create-drop
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc.batch_size: 100
+        order_inserts: true

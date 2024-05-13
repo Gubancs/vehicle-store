@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.web.bind.annotation.*
 import java.net.URI
+import java.util.*
 
 @RestController
 class VehicleRestController {
@@ -28,9 +29,10 @@ class VehicleRestController {
             ResponseEntity.status(HttpStatus.CONFLICT)
                 .build()
         } else {
-            val res = service.create(vehicle)
-            ResponseEntity.created(URI.create("/jarmuvek/${res.uuid}"))
-                .body(res)
+            vehicle.uuid = UUID.randomUUID().toString()
+            service.create(vehicle)
+            ResponseEntity.created(URI.create("/jarmuvek/${vehicle.uuid}"))
+                .body(vehicle)
         }
     }
 

@@ -11,6 +11,9 @@ import java.util.*
 @Table(name = "vehicles")
 class Vehicle : BaseEntity() {
 
+    @Column(name = "uuid", unique = true)
+    var uuid: String? = null
+
     @Column(length = 20)
     var registration: String? = null
 

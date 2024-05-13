@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface VehicleRepository : JpaRepository<Vehicle, String> {
+interface VehicleRepository : JpaRepository<Vehicle, Long> {
+
+    fun findByUuid(uuid: String): Optional<Vehicle>
 
     fun existsByRegistration(registration: String): Boolean
 

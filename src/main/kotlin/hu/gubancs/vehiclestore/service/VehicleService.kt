@@ -5,6 +5,7 @@ import hu.gubancs.vehiclestore.repository.VehicleRepository
 import hu.gubancs.vehiclestore.rest.dto.VehicleDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cache.annotation.Cacheable
+import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -17,9 +18,9 @@ class VehicleService {
     @Autowired
     private lateinit var mapper: VehicleMapper
 
-    fun create(dto: VehicleDto): VehicleDto {
-        return repository.save(mapper.mapToEntity(dto))
-            .let { mapper.mapToDto(it) }
+    @Async
+    fun create(dto: VehicleDto) {
+        repository.save(mapper.mapToEntity(dto))
     }
 
     @Cacheable("registrationCache")
@@ -29,7 +30,7 @@ class VehicleService {
 
     @Cacheable("uuidCache")
     fun findById(uuid: String): Optional<VehicleDto> {
-        return repository.findById(uuid).map { mapper.mapToDto(it) }
+        return repository.findByUuid(uuid).map { mapper.mapToDto(it) }
     }
 
     @Cacheable("searchCache")

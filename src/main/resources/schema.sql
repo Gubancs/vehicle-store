@@ -1,10 +1,15 @@
+-- Sequences -----------------------------------------------------
+DROP SEQUENCE IF EXISTS entity_seq;
+CREATE SEQUENCE entity_seq START 1 INCREMENT 50;
+
 -- Tables --------------------------------------------------------
 
 DROP TABLE IF EXISTS vehicles;
 
 CREATE TABLE vehicles (
+    id bigint PRIMARY KEY,
+    uuid character varying(36) UNIQUE,
     validity date,
-    uuid character varying(36) PRIMARY KEY DEFAULT gen_random_uuid(),
     registration character varying(20) UNIQUE,
     owner character varying(200),
     data character varying(200)

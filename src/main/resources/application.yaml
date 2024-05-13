@@ -2,20 +2,49 @@
 server:
   port: 8888
   undertow:
-
+    max-http-post-size: 1KB
     accesslog:
       enabled: false
+
+
+  #HTTP Response Compression
+  compression:
+    enabled: false
+    min-response-size: 10KB
+    mime-types: application/json
 
 
 # Logging
 logging:
   level:
-    web: INFO
+    web: info
+    sql: info
 
 # Spring
 spring:
 
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityRequestMatcherProviderAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration
 
+  cache:
+    type: JCACHE
+    jcache:
+      config: classpath:ehcache.xml
+
+  # GSON Configuration
+  gson:
+    date-format: yyyy-MM-dd
+
+  # Web MVC
+  mvc:
+    log-resolved-exception: false
+    converters:
+      preferred-json-mapper: gson
 
   #DB Schema Initialization
   sql:
@@ -23,7 +52,6 @@ spring:
       mode: ALWAYS
       continue-on-error: false
       schema-locations: classpath:/schema.sql
-
 
 
   #Datasource
@@ -34,10 +62,9 @@ spring:
 
     #Hikari Connection Pool
     hikari:
-      connection-timeout: 10000
+      connection-timeout: 1000
       maximum-pool-size: 50
       minimum-idle: 10
-      max-lifetime: 2000000
       connection-test-query: SELECT 1
       auto-commit: false
 
@@ -57,6 +84,13 @@ spring:
       format_sql: false
       ddl-auto: validate
     properties:
+
       hibernate:
-        jdbc.batch_size: 100
-        order_inserts: true
+        generate_statistics: false
+        #Hibernate Second Level Cache Configuration
+        javax.cache.missing_cache_strategy: create
+        cache:
+          use_second_level_cache: true
+          use_query_cache: true
+          region.factory_class: jcache
+

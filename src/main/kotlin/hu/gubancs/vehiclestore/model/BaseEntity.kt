@@ -5,8 +5,7 @@ import jakarta.persistence.*
 @MappedSuperclass
 open class BaseEntity {
     @Id
-    @Column(name = "ID")
-     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqGen")
-    @SequenceGenerator(name = "seqGen", sequenceName = "entity_seq", allocationSize = 50, initialValue = 1)
-    var id: Long? = null
+    @Column(name = "uuid", unique = true)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    var uuid: String? = null
 }

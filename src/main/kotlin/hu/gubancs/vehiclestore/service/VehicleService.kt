@@ -4,10 +4,7 @@ import hu.gubancs.vehiclestore.mapper.VehicleMapper
 import hu.gubancs.vehiclestore.repository.VehicleRepository
 import hu.gubancs.vehiclestore.rest.dto.VehicleDto
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
-import org.springframework.cache.annotation.Caching
-import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -20,34 +17,26 @@ class VehicleService {
     @Autowired
     private lateinit var mapper: VehicleMapper
 
-    @Async
-    @Caching(
-        evict = [
-            CacheEvict(value = ["registrationCache"], key = "#dto.registration"),
-            CacheEvict(value = ["uuidCache"], key = "#dto.uuid"),
-            CacheEvict(value = ["countCache"], allEntries = true),
-        ]
-    )
-    fun createAsync(dto: VehicleDto) {
-        repository.save(mapper.mapToEntity(dto));
+    fun create(dto: VehicleDto): VehicleDto {
+        return repository.save(mapper.mapToEntity(dto))
+            .let { mapper.mapToDto(it) }
     }
 
     @Cacheable("registrationCache")
-    fun existsByRegistration(plateNumber: String): Boolean {
-        return repository.existsByRegistration(plateNumber)
+    fun existsByRegistration(registration: String): Boolean {
+        return repository.existsByRegistration(registration)
     }
 
     @Cacheable("uuidCache")
-    fun findByUuid(uuid: String): Optional<VehicleDto> {
-        return repository.findByUuid(uuid).map { mapper.mapToDto(it) }
+    fun findById(uuid: String): Optional<VehicleDto> {
+        return repository.findById(uuid).map { mapper.mapToDto(it) }
     }
 
-    @Cacheable("searchResultCache")
+    @Cacheable("searchCache")
     fun search(keyword: String): List<VehicleDto> {
         return repository.search(keyword).map { mapper.mapToDto(it) }
     }
 
-    @Cacheable("countCache")
     fun count(): Long {
         return repository.count()
     }

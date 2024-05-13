@@ -19,8 +19,7 @@ repositories {
 }
 
 dependencies {
-    implementation("javax.cache:cache-api:1.1.1")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("com.google.code.gson:gson:2.10.1")
     implementation("org.jetbrains.kotlin:kotlin-serialization")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.postgresql:postgresql:42.7.3")
@@ -31,7 +30,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.hibernate.validator:hibernate-validator:8.0.1.Final")
-    //implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.hibernate.orm:hibernate-ehcache:6.0.0.Alpha7")
+    implementation("org.hibernate.orm:hibernate-jcache:7.0.0.Alpha1")
+    implementation("org.ehcache:ehcache:3.10.8:jakarta")
     testImplementation(kotlin("test"))
 }
 

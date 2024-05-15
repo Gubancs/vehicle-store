@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+
 -- Tables --------------------------------------------------------
 
 DROP TABLE IF EXISTS vehicles;

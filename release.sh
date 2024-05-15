@@ -19,6 +19,5 @@ cp docker/haproxy.conf build/release/docker/
 cp docker/init.sql build/release/docker/
 cp docker-compose.yaml build/release/
 
-zip -jr build/release/vehiclestore.zip build/release/
-
-echo "Release is ready at build/release/vehiclestore.zip"
+cd build/release || exit
+zip -r vehiclestore.zip .

@@ -1,4 +1,4 @@
-
+#!/bin/zsh
 gradlew clean
 gradlew bootJar
 docker build . -t vehiclestore:latest

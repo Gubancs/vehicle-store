@@ -42,6 +42,7 @@ services:
     volumes:
       - ./docker/haproxy.conf:/usr/local/etc/haproxy/haproxy.cfg
     network_mode: host
+    restart: always
     depends_on:
       - api1
       - api2

@@ -1,12 +1,12 @@
 package hu.gubancs.vehiclestore.model
 
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Id
+import jakarta.persistence.MappedSuperclass
 
 @MappedSuperclass
 open class BaseEntity {
     @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqGen")
-    @SequenceGenerator(name = "seqGen", sequenceName = "entity_seq", allocationSize = 50, initialValue = 1)
-    var id: Long? = null
+    @Column(name = "uuid", unique = true)
+    var uuid: String? = null
 }

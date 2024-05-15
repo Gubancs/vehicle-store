@@ -30,7 +30,7 @@ class VehicleRestController {
                 .build()
         } else {
             vehicle.uuid = UUID.randomUUID().toString()
-            service.create(vehicle)
+            service.saveAsync(vehicle)
             ResponseEntity.created(URI.create("/jarmuvek/${vehicle.uuid}"))
                 .body(vehicle)
         }

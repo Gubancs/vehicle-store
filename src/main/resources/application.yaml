@@ -1,6 +1,7 @@
 # Tomcat Server
 server:
-  port: 8888
+  port: 8080
+
   undertow:
     max-http-post-size: 1KB
     accesslog:
@@ -10,7 +11,7 @@ server:
   #HTTP Response Compression
   compression:
     enabled: false
-    min-response-size: 10KB
+    min-response-size: 100KB
     mime-types: application/json
 
 
@@ -18,7 +19,6 @@ server:
 logging:
   level:
     web: info
-    sql: info
 
 # Spring
 spring:
@@ -63,7 +63,7 @@ spring:
     #Hikari Connection Pool
     hikari:
       connection-timeout: 1000
-      maximum-pool-size: 50
+      maximum-pool-size: 100
       minimum-idle: 10
       connection-test-query: SELECT 1
       auto-commit: false

@@ -3,9 +3,9 @@
     <cache-template name="template">
         <key-type>java.lang.String</key-type>
         <expiry>
-            <ttl>500</ttl>
+            <ttl>600</ttl>
         </expiry>
-        <heap>20000</heap>
+        <heap>30000</heap>
     </cache-template>
 
     <cache alias="searchCache" uses-template="template">

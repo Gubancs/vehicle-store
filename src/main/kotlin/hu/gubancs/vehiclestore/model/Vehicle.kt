@@ -6,13 +6,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy
 import java.util.*
 
 @Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Entity
 @Table(name = "vehicles")
 class Vehicle : BaseEntity() {
-
-    @Column(name = "uuid", unique = true)
-    var uuid: String? = null
 
     @Column(length = 20)
     var registration: String? = null

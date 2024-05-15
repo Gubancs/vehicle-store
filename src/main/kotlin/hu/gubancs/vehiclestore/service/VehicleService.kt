@@ -19,7 +19,7 @@ class VehicleService {
     private lateinit var mapper: VehicleMapper
 
     @Async
-    fun create(dto: VehicleDto) {
+    fun saveAsync(dto: VehicleDto) {
         repository.save(mapper.mapToEntity(dto))
     }
 
@@ -30,7 +30,7 @@ class VehicleService {
 
     @Cacheable("uuidCache")
     fun findById(uuid: String): Optional<VehicleDto> {
-        return repository.findByUuid(uuid).map { mapper.mapToDto(it) }
+        return repository.findById(uuid).map { mapper.mapToDto(it) }
     }
 
     @Cacheable("searchCache")
